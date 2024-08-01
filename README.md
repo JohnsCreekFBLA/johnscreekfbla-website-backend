@@ -13,6 +13,8 @@ vercel env pull .env.development.local
 
 
 next dev
+
+
 // // DROP TABLE IF EXISTS Student;
 
 // await client.sql(`

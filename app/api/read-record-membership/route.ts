@@ -18,17 +18,19 @@ export async function GET(request: Request) {
     XLSX.utils.book_append_sheet(cWorkbook, cWorksheet, 'Students');
 
     const tempBuffer = XLSX.write(cWorkbook, { type: 'buffer', bookType: 'xlsx' });
-       // Create a response with the buffer and appropriate headers
-       const response = new NextResponse(tempBuffer, {
-        headers: {
-          'Content-Disposition': 'attachment; filename=students.xlsx',
-          'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        },
-      });
-      return response;
-    } catch (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
+    
+    // Create a response with the buffer and appropriate headers
+    const response = new NextResponse(tempBuffer, {
+      headers: {
+        'Content-Disposition': 'attachment; filename=students.xlsx',
+        'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      },
+    });
+    // return NextResponse.json({ response }, { status: 200 });
+    return response;
+  } catch (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
 }
 
 
