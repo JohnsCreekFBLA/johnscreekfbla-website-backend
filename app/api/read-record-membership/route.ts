@@ -3,7 +3,7 @@
 
 import { sql } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
-import xlsx from 'xlsx';
+import * as XLSX from 'xlsx'
 
 export async function GET(request: Request) {
   //   console.log("Request Received");
@@ -13,11 +13,11 @@ export async function GET(request: Request) {
     const rows = result.rows;
 
     // Create a new cWorkbook and add a cWorksheet
-    const cWorkbook = xlsx.utils.book_new();
-    const cWorksheet = xlsx.utils.json_to_sheet(rows);
-    xlsx.utils.book_append_sheet(cWorkbook, cWorksheet, 'Students');
+    const cWorkbook = XLSX.utils.book_new();
+    const cWorksheet = XLSX.utils.json_to_sheet(rows);
+    XLSX.utils.book_append_sheet(cWorkbook, cWorksheet, 'Students');
 
-    const tempBuffer = xlsx.write(cWorkbook, { type: 'buffer', bookType: 'xlsx' });
+    const tempBuffer = XLSX.write(cWorkbook, { type: 'buffer', bookType: 'xlsx' });
        // Create a response with the buffer and appropriate headers
        const response = new NextResponse(tempBuffer, {
         headers: {
