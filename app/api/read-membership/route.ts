@@ -10,14 +10,11 @@ export async function GET(request: Request) {
     const rows = result.rows;
     const formattedRows = rows.map((row: any) => {
       const formattedRow: any = {};
-      fields.forEach((field: any, index: number) => {
-        formattedRow[field.name] = row[index];
+      fields.forEach((field: any) => {
+        formattedRow[field.name] = row[field.name];
       });
       return formattedRow;
     });
-    alert(fields);
-    alert(rows);
-    alert(formattedRows);
 
     // Create excel file structure
     const cWorkbook = XLSX.utils.book_new();
