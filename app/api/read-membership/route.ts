@@ -1,9 +1,13 @@
 import { sql } from '@vercel/postgres';
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 import * as XLSX from 'xlsx'
+import { corsMiddleware } from '../corshandler';
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
+    const response = new NextResponse();
+    await corsMiddleware(request, response);
+
     // Parse data
     const result = await sql`SELECT * FROM membership_form;`;
     const fields = result.fields;
@@ -22,16 +26,13 @@ export async function POST(request: Request) {
     XLSX.utils.book_append_sheet(cWorkbook, cWorksheet, 'Students');
     const tempBuffer = XLSX.write(cWorkbook, { type: 'buffer', bookType: 'xlsx' });
     
-    // Response with headers
-    const response = new NextResponse(tempBuffer, {
-      headers: {
-        'Content-Disposition': 'attachment; filename=students.xlsx',
-        'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      },
-    });
-    return response;
+    // Headers
+    const responseHeaders = new Headers();
+    responseHeaders.set('Content-Disposition', 'attachment; filename=students.xlsx');
+    responseHeaders.set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    return new NextResponse(tempBuffer, { headers: responseHeaders });
   } catch (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({error: error.message}, {status: 500});
   }
 }
 
