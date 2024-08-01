@@ -8,7 +8,7 @@ export async function GET(request: Request) {
     const result = await sql`SELECT * FROM membership_form;`;
     const fields = result.fields;
     const rows = result.rows;
-    const formattedRows = rows.map((row: any) => {
+    const formattedRows = rows.map((row: any) => {// Map into JSON
       const formattedRow: any = {};
       fields.forEach((field: any) => {
         formattedRow[field.name] = row[field.name];
