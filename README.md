@@ -16,7 +16,7 @@ next dev
 
 ## Membership Form: 
 CREATE TABLE IF NOT EXISTS "membership_form" (
-idStudent	int NOT NULL UNIQUE,
+idStudent	SERIAL,
 firstName	varchar(50),
 lastName varchar(50),
 preferredName	varchar(50),

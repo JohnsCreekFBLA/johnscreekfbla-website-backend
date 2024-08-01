@@ -15,7 +15,9 @@ export async function GET(request: Request) {
       });
       return formattedRow;
     });
-
+    console.log(fields);
+    console.log(rows);
+    
     // Create excel file structure
     const cWorkbook = XLSX.utils.book_new();
     const cWorksheet = XLSX.utils.json_to_sheet(formattedRows);
