@@ -2,10 +2,10 @@
 // await client.sql`INSERT INTO Student (firstName, lastName, preferredName, email, phoneNumber, gender, grade, parentEmail, parentPhone, street, city, zipCode, returningMember, recruiter, tshirt) VALUES ('John', 'Doe', 'John', 'test@gmail.com', '470-999-9999', 0, 10, 'testparent@gmail.com', '404-999-9999', '240 place street', 'Johns Creek', 30097, 0, 'Sanay', 'XL');`;
 
 import { sql } from '@vercel/postgres';
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextResponse } from 'next/server';
 import xlsx from 'xlsx';
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(request: Request) {
   //   console.log("Request Received");
   //   const {idStudent,firstName,lastName,preferredName,emailStudent,phoneNumberStudent,gender,grade,returning,recruiter,tshirt,parentEmail,parentPhone,street,city,zipCode} = req.body;
   try {
@@ -18,12 +18,17 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
     xlsx.utils.book_append_sheet(cWorkbook, cWorksheet, 'Students');
 
     const tempBuffer = xlsx.write(cWorkbook, { type: 'buffer', bookType: 'xlsx' });
-    res.setHeader('Content-Disposition', 'attachment; filename=students.xlsx');
-    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');   
-    return res.status(200).send(tempBuffer);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
-  }
+       // Create a response with the buffer and appropriate headers
+       const response = new NextResponse(tempBuffer, {
+        headers: {
+          'Content-Disposition': 'attachment; filename=students.xlsx',
+          'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        },
+      });
+      return response;
+    } catch (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
 }
 
 
