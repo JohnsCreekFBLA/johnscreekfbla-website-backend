@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
     const responseHeaders = new Headers();
     responseHeaders.set('Content-Disposition', 'attachment; filename=students.xlsx');
     responseHeaders.set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    return new NextResponse(tempBuffer, { headers: responseHeaders });
+    return new Response(tempBuffer, { headers: responseHeaders });
   } catch (error) {
     return NextResponse.json({error: error.message}, {status: 500});
   }
