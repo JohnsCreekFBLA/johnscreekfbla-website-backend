@@ -2,7 +2,7 @@ import { sql } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
 import * as XLSX from 'xlsx'
 
-export async function GET(request: Request) {
+export async function POST(request: Request) {
   try {
     // Parse data
     const result = await sql`SELECT * FROM membership_form;`;

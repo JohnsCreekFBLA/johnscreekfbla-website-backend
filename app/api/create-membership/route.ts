@@ -11,23 +11,9 @@ export async function GET(request: Request) {
 
     // Implementation
     const response = await sql`
-    UPDATE membership_form SET 
-      firstName = ${firstName},
-      lastName = ${lastName},
-      preferredName = ${preferredName},
-      email = ${emailStudent},
-      phoneNumber = ${phoneNumberStudent},
-      gender = ${gender},
-      grade = ${grade},
-      parentEmail = ${parentEmail},
-      parentPhone = ${parentPhone},
-      street = ${street},
-      city = ${city},
-      zipCode = ${zipCode},
-      returningMember = ${returning},
-      recruiter = ${recruiter},
-      tshirt = ${tshirt}
-    WHERE idStudent = ${idStudent};`;
+    INSERT INTO (firstName, lastName, preferredName, email, phoneNumber, gender, grade, parentEmail, parentPhone, street, city, zipCode, returningMember, recruiter, tshirt) 
+    VALUES 
+    ('${firstName}', '${lastName}', '${preferredName}', '${emailStudent}', '${phoneNumberStudent}', ${gender}, ${grade}, '${parentEmail}', '${parentPhone}', '${street}', '${city}', ${zipCode}, ${returning}, '${recruiter}', '${tshirt}');`;
 
     return NextResponse.json({ response }, { status: 200 });
   } catch (error) {
