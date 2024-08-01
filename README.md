@@ -2,6 +2,8 @@
 
 npm install -g vercel
 vercel login
-vercelvercel
+Link repository to Vercel
+npm exec vercel deploy
+vercel --prod
 
 

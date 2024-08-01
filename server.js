@@ -81,23 +81,7 @@ app.listen(port, () => {
   console.log('Server is running on port 3000');
 });
 
-
 module.exports = app; // For Vercel Deployment
-
-
-// const express = require('express');
-// const sqlite3 = require('sqlite3').verbose();
-// const app = express();
-// const port = 3000;
-
-// // Connect to SQLite database file
-// const db = new sqlite3.Database('./database.sqlite');
-
-// // Create a sample table if it doesn't exist
-// db.serialize(() => {
-//   db.run("CREATE TABLE IF NOT EXISTS user (id INT, name TEXT)");
-//   db.run("INSERT INTO user (id, name) VALUES (1, 'John Doe')");
-// });
 
 // Identification: 13 Fields
 //     - First Name
