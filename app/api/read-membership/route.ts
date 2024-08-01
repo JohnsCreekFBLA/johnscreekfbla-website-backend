@@ -3,7 +3,7 @@ import { NextResponse, NextRequest } from 'next/server';
 import * as XLSX from 'xlsx'
 import { corsMiddleware } from '../corshandler';
 
-export async function POST(request: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
     const response = new NextResponse();
     await corsMiddleware(request, response);
