@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import Cors from 'cors';
+import Cors from 'micro-cors';
 
 const cors = Cors({
   methods: ['GET', 'HEAD', 'POST'],
