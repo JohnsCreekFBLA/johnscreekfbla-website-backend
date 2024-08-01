@@ -4,17 +4,25 @@ import * as XLSX from 'xlsx'
 
 export async function GET(request: Request) {
   try {
+    // Parse data
     const result = await sql`SELECT * FROM membership_form;`;
+    const fields = result.fields;
     const rows = result.rows;
+    const formattedRows = rows.map((row: any) => {
+      const formattedRow: any = {};
+      fields.forEach((field: any, index: number) => {
+        formattedRow[field.name] = row[index];
+      });
+      return formattedRow;
+    });
 
     // Create excel file structure
     const cWorkbook = XLSX.utils.book_new();
-    const cWorksheet = XLSX.utils.json_to_sheet(rows);
+    const cWorksheet = XLSX.utils.json_to_sheet(formattedRows);
     XLSX.utils.book_append_sheet(cWorkbook, cWorksheet, 'Students');
-
     const tempBuffer = XLSX.write(cWorkbook, { type: 'buffer', bookType: 'xlsx' });
     
-    // Create a response with the buffer and appropriate headers
+    // Response with headers
     const response = new NextResponse(tempBuffer, {
       headers: {
         'Content-Disposition': 'attachment; filename=students.xlsx',
