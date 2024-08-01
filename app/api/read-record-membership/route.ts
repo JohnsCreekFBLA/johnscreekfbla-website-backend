@@ -9,7 +9,7 @@ export async function GET(request: Request) {
   //   console.log("Request Received");
   //   const {idStudent,firstName,lastName,preferredName,emailStudent,phoneNumberStudent,gender,grade,returning,recruiter,tshirt,parentEmail,parentPhone,street,city,zipCode} = req.body;
   try {
-    const result = await sql`SELECT * FROM students;`;
+    const result = await sql`SELECT * FROM Students;`;
     const rows = result.rows;
 
     // Create a new cWorkbook and add a cWorksheet
