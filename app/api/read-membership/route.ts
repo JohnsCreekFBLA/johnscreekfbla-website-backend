@@ -1,7 +1,7 @@
 import { sql } from '@vercel/postgres';
 import { NextResponse, NextRequest } from 'next/server';
 import * as XLSX from 'xlsx'
-import { corsMiddleware } from '../corshandler';
+import { corsMiddleware } from './corshandler';
 
 export async function GET(request: NextRequest) {
   try {
