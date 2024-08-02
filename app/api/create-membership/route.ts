@@ -22,7 +22,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ returnString }, { status: 200 });
   } catch (error) {
     const returnString = error.message + query;
-    return NextResponse.json({ error: returnString }, { status: 500 });
+    return NextResponse.json({ returnString }, { status: 500 });
   }
 }
 
