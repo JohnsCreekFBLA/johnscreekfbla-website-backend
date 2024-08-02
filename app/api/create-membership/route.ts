@@ -11,7 +11,7 @@ export async function GET(request: Request) {
 
     // Implementation
     const response = await sql`
-    INSERT INTO (firstName, lastName, preferredName, email, phoneNumber, gender, grade, parentEmail, parentPhone, street, city, zipCode, returningMember, recruiter, tshirt) 
+    INSERT INTO membership_form (firstName, lastName, preferredName, email, phoneNumber, gender, grade, parentEmail, parentPhone, street, city, zipCode, returningMember, recruiter, tshirt) 
     VALUES 
     ('${firstName}', '${lastName}', '${preferredName}', '${emailStudent}', '${phoneNumberStudent}', ${gender}, ${grade}, '${parentEmail}', '${parentPhone}', '${street}', '${city}', ${zipCode}, ${returning}, '${recruiter}', '${tshirt}');`;
 
