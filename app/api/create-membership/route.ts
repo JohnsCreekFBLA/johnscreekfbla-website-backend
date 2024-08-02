@@ -13,9 +13,7 @@ export async function POST(request: Request) {
     const {idStudent,firstName,lastName,preferredName,emailStudent,phoneNumberStudent,gender,grade,returning,recruiter,tshirt,parentEmail,parentPhone,street,city,zipCode, ospNumber} = await request.json();
 
     // Implementation
-    query = `INSERT INTO membership_form (firstName, lastName, preferredName, email, phoneNumber, gender, grade, parentEmail, parentPhone, street, city, zipCode, returningMember, recruiter, tshirt) 
-    VALUES 
-    ('${firstName}', '${lastName}', '${preferredName}', '${emailStudent}', '${phoneNumberStudent}', ${gender}, ${grade}, '${parentEmail}', '${parentPhone}', '${street}', '${city}', ${zipCode}, ${returning}, '${recruiter}', '${tshirt}');`;
+    query = `INSERT INTO membership_form (firstName, lastName, preferredName, email, phoneNumber, gender, grade, parentEmail, parentPhone, street, city, zipCode, returningMember, recruiter, tshirt) VALUES ('${firstName}', '${lastName}', '${preferredName}', '${emailStudent}', '${phoneNumberStudent}', ${gender}, ${grade}, '${parentEmail}', '${parentPhone}', '${street}', '${city}', ${zipCode}, ${returning}, '${recruiter}', '${tshirt}');`;
     const response = await sql`${query}`;
 
     const returnString = response + query;
