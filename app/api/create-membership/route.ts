@@ -13,12 +13,13 @@ export async function POST(request: Request) {
     const {idStudent,firstName,lastName,preferredName,emailStudent,phoneNumberStudent,gender,grade,returning,recruiter,tshirt,parentEmail,parentPhone,street,city,zipCode, ospNumber} = await request.json();
 
     // Implementation
-    const response = await sql`
-    INSERT INTO membership_form (firstName, lastName, preferredName, email, phoneNumber, gender, grade, parentEmail, parentPhone, street, city, zipCode, returningMember, recruiter, tshirt) 
+    const query = `INSERT INTO membership_form (firstName, lastName, preferredName, email, phoneNumber, gender, grade, parentEmail, parentPhone, street, city, zipCode, returningMember, recruiter, tshirt) 
     VALUES 
     ('${firstName}', '${lastName}', '${preferredName}', '${emailStudent}', '${phoneNumberStudent}', ${gender}, ${grade}, '${parentEmail}', '${parentPhone}', '${street}', '${city}', ${zipCode}, ${returning}, '${recruiter}', '${tshirt}');`;
+    const response = await sql`${query}`;
 
-    return NextResponse.json({ response }, { status: 200 });
+    const returnString = response + query;
+    return NextResponse.json({ returnString }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

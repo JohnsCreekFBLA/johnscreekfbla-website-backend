@@ -1,15 +1,18 @@
-# johnscreekfbla-website-backend
+# JCHS FBLA Website - Backend
 
-npm install -g vercel
-vercel login
-Link repository to Vercel
-npm exec vercel deploy
-vercel --prod
+## Installation
+1. npm install -g vercel
+2. vercel login
+3. Link repository to Vercel via vercel.com
+4. npm exec vercel deploy
+5. vercel --prod
 
 # Postgres Vercel
-vercel link
-vercel env pull .env.development.local 
+1. vercel link
+2. vercel env pull .env.development.local 
 
+
+# Local Debugging
 next dev
 
 # Setup for Postgres
