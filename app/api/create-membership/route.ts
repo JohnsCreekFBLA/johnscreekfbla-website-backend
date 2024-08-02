@@ -1,12 +1,12 @@
 import { sql } from '@vercel/postgres';
 import { NextResponse, NextRequest } from 'next/server';
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
 
   try {
-    // if (!request.body) {
-    //   throw new Error("Request body is empty");
-    // }
+    if (!request.body) {
+      throw new Error("Request body is empty");
+    }
     // const tempVal = await request.json();
     // return tempVal;
 
