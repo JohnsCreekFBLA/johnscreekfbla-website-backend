@@ -13,8 +13,10 @@ export async function POST(request: Request) {
     const {idStudent,firstName,lastName,preferredName,emailStudent,phoneNumberStudent,gender,grade,returning,recruiter,tshirt,parentEmail,parentPhone,street,city,zipCode, ospNumber} = await request.json();
 
     // Implementation
-    query = `INSERT INTO membership_form (firstName, lastName, preferredName, email, phoneNumber, gender, grade, parentEmail, parentPhone, street, city, zipCode, returningMember, recruiter, tshirt) VALUES ('${firstName}', '${lastName}', '${preferredName}', '${emailStudent}', '${phoneNumberStudent}', ${gender}, ${grade}, '${parentEmail}', '${parentPhone}', '${street}', '${city}', ${zipCode}, ${returning}, '${recruiter}', '${tshirt}');`;
-    const response = await sql`${query}`;
+    query = `INSERT INTO membership_form (firstName, lastName, preferredName, email, phoneNumber, gender, grade, parentEmail, parentPhone, street, city, zipCode, returningMember, recruiter, tshirt) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15);`;
+
+    const values = [firstName, lastName, preferredName, emailStudent, phoneNumberStudent, gender, grade, parentEmail, parentPhone, street, city, zipCode, returning, recruiter, tshirt];
+    const response = await sql.query(query, values);
 
     const returnString = response + query;
     return NextResponse.json({ returnString }, { status: 200 });
