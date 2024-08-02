@@ -2,7 +2,7 @@ import { sql } from '@vercel/postgres';
 import { NextResponse, NextRequest } from 'next/server';
 
 export async function POST(request: Request) {
-
+  let query = '';
   try {
     if (!request.body) {
       throw new Error("Request body is empty");
@@ -13,7 +13,7 @@ export async function POST(request: Request) {
     const {idStudent,firstName,lastName,preferredName,emailStudent,phoneNumberStudent,gender,grade,returning,recruiter,tshirt,parentEmail,parentPhone,street,city,zipCode, ospNumber} = await request.json();
 
     // Implementation
-    const query = `INSERT INTO membership_form (firstName, lastName, preferredName, email, phoneNumber, gender, grade, parentEmail, parentPhone, street, city, zipCode, returningMember, recruiter, tshirt) 
+    query = `INSERT INTO membership_form (firstName, lastName, preferredName, email, phoneNumber, gender, grade, parentEmail, parentPhone, street, city, zipCode, returningMember, recruiter, tshirt) 
     VALUES 
     ('${firstName}', '${lastName}', '${preferredName}', '${emailStudent}', '${phoneNumberStudent}', ${gender}, ${grade}, '${parentEmail}', '${parentPhone}', '${street}', '${city}', ${zipCode}, ${returning}, '${recruiter}', '${tshirt}');`;
     const response = await sql`${query}`;
@@ -21,7 +21,8 @@ export async function POST(request: Request) {
     const returnString = response + query;
     return NextResponse.json({ returnString }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    const returnString = error.message + query;
+    return NextResponse.json({ error: returnString }, { status: 500 });
   }
 }
 
