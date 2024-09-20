@@ -40,15 +40,16 @@ export async function GET(request: NextRequest) {
     const tempBuffer = XLSX.write(cWorkbook, { type: 'buffer', bookType: 'xlsx' });
     
     // Response with headers
-    const response = new NextResponse(tempBuffer, {
-      headers: {
-        'Content-Disposition': 'attachment; filename=students.xlsx',
-        'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        'Cache-Control': 'no-store', 
-        'Pragma': 'no-cache', 
-        'Expires': '0',
-      },
-    });
+    // const response = new NextResponse(tempBuffer, {
+    //   headers: {
+    //     'Content-Disposition': 'attachment; filename=students.xlsx',
+    //     'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    //     'Cache-Control': 'no-store', 
+    //     'Pragma': 'no-cache', 
+    //     'Expires': '0',
+    //   },
+    // });
+    const response = NextResponse.json({data: formattedRows}, {status: 200});
     return response;
   } catch (error) {
     return NextResponse.json({error: error.message}, {status: 500});
