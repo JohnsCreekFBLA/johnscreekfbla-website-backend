@@ -1,6 +1,6 @@
 import { sql } from '@vercel/postgres';
 import { NextResponse, NextRequest } from 'next/server';
-import * as XLSX from 'xlsx'
+// import * as XLSX from 'xlsx'
 // import { corsMiddleware } from './corshandler';
 
 export async function GET(request: NextRequest) {
@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
     // responseHeaders.set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     // return new Response(tempBuffer, { headers: responseHeaders });
 
-
+    const XLSX = await import('xlsx');
     // Create excel file structure
     const cWorkbook = XLSX.utils.book_new();
     const cWorksheet = XLSX.utils.json_to_sheet(formattedRows);
