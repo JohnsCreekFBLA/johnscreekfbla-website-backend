@@ -44,12 +44,12 @@ export async function GET(request: NextRequest) {
       headers: {
         'Content-Disposition': 'attachment; filename=students.xlsx',
         'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'Cache-Control': 'no-store', 
+        'Pragma': 'no-cache', 
+        'Expires': '0',
       },
     });
     return response;
-
-
-
   } catch (error) {
     return NextResponse.json({error: error.message}, {status: 500});
   }
