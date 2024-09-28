@@ -12,12 +12,13 @@ export async function POST(request: Request) {
 
     const {idStudent,firstName,lastName,preferredName,emailStudent,phoneNumberStudent,gender,grade,returning,recruiter,tshirt,parentEmail,parentPhone,street,city,zipCode, ospNumber} = await request.json();
 
-    // Implementation
+    // Insert into Database
     query = `INSERT INTO membership_form (firstName, lastName, preferredName, email, phoneNumber, gender, grade, parentEmail, parentPhone, street, city, zipCode, returningMember, recruiter, tshirt) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15);`;
 
     const values = [firstName, lastName, preferredName, emailStudent, phoneNumberStudent, gender, grade, parentEmail, parentPhone, street, city, zipCode, returning, recruiter, tshirt];
     const response = await sql.query(query, values);
 
+    // Visible JSON Debugging
     const returnString = response + query;
     return NextResponse.json({ returnString }, { status: 200 });
   } catch (error) {
@@ -26,9 +27,8 @@ export async function POST(request: Request) {
   }
 }
 
-// Debugging
+// Example Query
 // const response = await sql`INSERT INTO membership_form (firstName, lastName, preferredName, email, phoneNumber, gender, grade, parentEmail, parentPhone, street, city, zipCode, returningMember, recruiter, tshirt) VALUES ('John', 'Doe', 'John', 'test@gmail.com', '470-999-9999', 0, 10, 'testparent@gmail.com', '404-999-9999', '240 place street', 'Johns Creek', 30097, 0, 'Sanay', 'XL');`;
-
 
 // Identification: 13 Fields
 //     - First Name

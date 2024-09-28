@@ -4,10 +4,15 @@ const nextConfig = {
     return [
       {
         // Routes this applies to
-        source: "/api/(.*)",
+        // source: "/api/(.*)",
+        source: '/(.*)',
         // Headers
         headers: [
           // Allow for specific domains to have access or * for all
+          {
+            key: 'Cache-Control',
+            value: 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+          },
           {
             key: "Access-Control-Allow-Origin",
             value: "*",
